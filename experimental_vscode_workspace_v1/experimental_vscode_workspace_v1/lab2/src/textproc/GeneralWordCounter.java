@@ -2,6 +2,7 @@ package textproc;
 
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -63,8 +64,10 @@ public class GeneralWordCounter implements TextProcessor{
 
     }
 
-    public List<String, Integer> getWordList() {
-        return list;
+    public List<Entry<String, Integer>> getWordList() {
+        Set<Map.Entry<String, Integer>> wordSet = list.entrySet();
+		List<Map.Entry<String, Integer>> wordList = new ArrayList<>(wordSet);
+        return wordList;
         }
         
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.io.FileNotFoundException;
 
 public class BookReaderApplication {
     public static final String[] REGIONS = { "blekinge", "bohuslän", "dalarna", "dalsland", "gotland", "gästrikland",
@@ -11,15 +12,10 @@ public class BookReaderApplication {
 			"södermanland", "uppland", "värmland", "västerbotten", "västergötland", "västmanland", "ångermanland",
 			"öland", "östergötland" };
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException{
 
-        long t0 = System.nanoTime();
-		TextProcessor p = new SingleWordCounter("nils");
-		TextProcessor p2 = new SingleWordCounter("norge");
-		TextProcessor l = new MultiWordCounter(REGIONS);
-
-		Scanner s = new Scanner(new File("C:\\Users\\Mraxj\\Downloads\\experimental_vscode_workspace_v1\\experimental_vscode_workspace_v1\\lab2\\src\\nilsholg.txt"), "UTF-8");
-		Scanner s2 = new Scanner(new File("C:\\Users\\Mraxj\\Downloads\\experimental_vscode_workspace_v1\\experimental_vscode_workspace_v1\\lab2\\src\\undantagsord.txt"), "UTF-8");
+		Scanner s = new Scanner(new File("C:\\Users\\Mraxj\\Documents\\GitHub\\EDAA30\\experimental_vscode_workspace_v1\\experimental_vscode_workspace_v1\\lab2\\src\\nilsholg.txt"), "UTF-8");
+		Scanner s2 = new Scanner(new File("C:\\Users\\Mraxj\\Documents\\GitHub\\EDAA30\\experimental_vscode_workspace_v1\\experimental_vscode_workspace_v1\\lab2\\src\\undantagsord.txt"), "UTF-8");
 		Set<String> stopwords = new HashSet<String>();
 
 		s.findWithinHorizon("\uFEFF", 1);
@@ -33,27 +29,13 @@ public class BookReaderApplication {
 		}
 		s2.close();
 
-		TextProcessor g = new GeneralWordCounter(stopwords);
+		GeneralWordCounter g = new GeneralWordCounter(stopwords);
 
 		while (s.hasNext()) {
 			String word = s.next().toLowerCase();
-
-			p.process(word);
-			p2.process(word);
-			l.process(word);
 			g.process(word);
 		}
 		s.close();
-
-		
-		p.report();
-		p2.report();
-		l.report();
-		g.report();
-
-		long t1 = System.nanoTime();
-		System.out.println();
-		System.out.println("tid: " + (t1 - t0) / 1000000.0 + " ms");
-        
+        BookReaderController bookRead = new BookReaderController(g);
     }
 }

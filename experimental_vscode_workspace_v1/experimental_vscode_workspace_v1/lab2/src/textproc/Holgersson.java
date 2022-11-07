@@ -20,8 +20,8 @@ public class Holgersson {
 		TextProcessor p2 = new SingleWordCounter("norge");
 		TextProcessor l = new MultiWordCounter(REGIONS);
 
-		Scanner s = new Scanner(new File("C:\\Users\\Mraxj\\Downloads\\experimental_vscode_workspace_v1\\experimental_vscode_workspace_v1\\lab2\\src\\nilsholg.txt"), "UTF-8");
-		Scanner s2 = new Scanner(new File("C:\\Users\\Mraxj\\Downloads\\experimental_vscode_workspace_v1\\experimental_vscode_workspace_v1\\lab2\\src\\undantagsord.txt"), "UTF-8");
+		Scanner s = new Scanner(new File("C:\\Users\\Mraxj\\Documents\\GitHub\\EDAA30\\experimental_vscode_workspace_v1\\experimental_vscode_workspace_v1\\lab2\\src\\nilsholg.txt"), "UTF-8");
+		Scanner s2 = new Scanner(new File("C:\\Users\\Mraxj\\Documents\\GitHub\\EDAA30\\experimental_vscode_workspace_v1\\experimental_vscode_workspace_v1\\lab2\\src\\undantagsord.txt"), "UTF-8");
 		Set<String> stopwords = new HashSet<String>();
 
 		s.findWithinHorizon("\uFEFF", 1);
