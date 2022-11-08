@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -18,7 +19,7 @@ import javax.swing.plaf.PanelUI;
 import java.util.Map.Entry;
 
 public class BookReaderController {
-
+    private java.awt.event.KeyEvent evt;
 
     public BookReaderController(GeneralWordCounter counter) {
         SwingUtilities.invokeLater(() -> createWindow(counter, "BookReader", 100, 300));
@@ -48,25 +49,57 @@ public class BookReaderController {
 
         //Sortering
         b1.addActionListener(e -> listModel.sort((s1, s2) -> ((Entry<String, Integer>) s1).getKey().compareTo(((Entry<String, Integer>) s2).getKey())));
-        
+            
         b2.addActionListener(e -> listModel.sort((s1, s2) -> ((Entry<String, Integer>) s1).getValue() - ((Entry<String, Integer>) s2).getValue()));
 
-        
 
-        
+
+            
         //Sökning
         JPanel searchJPanel = new JPanel();
         JTextField searchField = new JTextField();
         JButton searchButton = new JButton("Enter");
         searchField.setPreferredSize(new Dimension(500, (int) searchButton.getPreferredSize().getHeight()));
+        JOptionPane d = new JOptionPane();
         searchJPanel.add(searchButton);
         searchJPanel.add(searchField);
+;
 
-        //TESTAR
-        String search = searchField.getText();
+        searchButton.addActionListener(e -> {
+            String search = searchField.getText().toLowerCase().trim();
+            boolean found = false;
+            for(int i = 0; i < listModel.getSize(); i++){
+                if(search.equals(((Entry<String, Integer>) listModel.getElementAt(i)).getKey())){
+                    listView.setSelectedIndex(i);
+                    listView.ensureIndexIsVisible(i); 
+                    found = true; 
+                }
+            }
+            //V2
+            if(!found){
+                d.showMessageDialog(null, "Ordet hittades inte. Försök igen", "Word not found", d.ERROR_MESSAGE);
+            }
+        });
+        
+        //V3
+        /*ActionListener thing = new ActionListener(e -> {
+            String search = searchField.getText().toLowerCase().trim();
+            boolean found = false;
+            for(int i = 0; i < listModel.getSize(); i++){
+                if(search.equals(((Entry<String, Integer>) listModel.getElementAt(i)).getKey())){
+                    listView.setSelectedIndex(i);
+                    listView.ensureIndexIsVisible(i); 
+                    found = true; 
+                }
+            }
+            //V2
+            if(!found){
+                d.showMessageDialog(null, "Ordet hittades inte. Försök igen", "Word not found", d.ERROR_MESSAGE);
+            }
+        });*/
 
-        searchButton.addActionListener(s -> System.out.println(search.toString()));
-       
+
+
         //Lägger till Panes
         pane.add(scrollPane);
         pane.add(buttonPanel, BorderLayout.SOUTH);
@@ -74,4 +107,5 @@ public class BookReaderController {
         frame.pack();
         frame.setVisible(true);
         }
+
 }

@@ -1,9 +1,11 @@
 package textproc;
 
+import java.security.KeyStore.Entry;
 import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
+import javax.swing.ListModel;
 
 public class SortedListModel<E> extends AbstractListModel<E> {
 	private List<E> list;
