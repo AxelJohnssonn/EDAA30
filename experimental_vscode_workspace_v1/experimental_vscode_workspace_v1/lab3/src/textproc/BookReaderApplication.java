@@ -36,7 +36,7 @@ public class BookReaderApplication {
 		s2.close();
 
 		GeneralWordCounter g = new GeneralWordCounter(stopwords);
-
+			
 		while (s.hasNext()) {
 			String word = s.next().toLowerCase();
 			g.process(word);

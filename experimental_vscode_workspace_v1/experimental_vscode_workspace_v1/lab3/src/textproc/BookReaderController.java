@@ -17,6 +17,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.plaf.PanelUI;
 import java.util.Map.Entry;
+import java.awt.event.*;
+
 
 public class BookReaderController {
     private java.awt.event.KeyEvent evt;
@@ -39,8 +41,9 @@ public class BookReaderController {
         
         //Knappar
         JPanel buttonPanel = new JPanel();
-        JButton b1 = new JButton("Alpabetic");
+        JButton b1 = new JButton("Alphabetic");
         JButton b2 = new JButton("Frequency");
+        
         buttonPanel.add(b1);
         buttonPanel.add(b2);
 
@@ -64,7 +67,7 @@ public class BookReaderController {
         searchJPanel.add(searchButton);
         searchJPanel.add(searchField);
 ;
-
+/* 
         searchButton.addActionListener(e -> {
             String search = searchField.getText().toLowerCase().trim();
             boolean found = false;
@@ -77,9 +80,31 @@ public class BookReaderController {
             }
             //V2
             if(!found){
-                d.showMessageDialog(null, "Ordet hittades inte. Försök igen", "Word not found", d.ERROR_MESSAGE);
+                d.showMessageDialog(null, search + " hittades inte. Försök igen", "Word not found", d.ERROR_MESSAGE);
             }
-        });
+        });*/
+
+        //v3
+        ActionListener actionListener = new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+               
+                    String search = searchField.getText().toLowerCase().trim();
+                    boolean found = false;
+                    for(int i = 0; i < listModel.getSize(); i++){
+                        if(search.equals(((Entry<String, Integer>) listModel.getElementAt(i)).getKey())){
+                            listView.setSelectedIndex(i);
+                            listView.ensureIndexIsVisible(i); 
+                            found = true; 
+                        }
+                    }
+                    //V2
+                    if(!found){
+                        d.showMessageDialog(null, search + " hittades inte. Försök igen", "Word not found", d.ERROR_MESSAGE);
+                    }
+                }
+            };
+
+            searchButton.addActionListener(actionListener);
         
         //V3
         /*ActionListener thing = new ActionListener(e -> {
@@ -92,12 +117,13 @@ public class BookReaderController {
                     found = true; 
                 }
             }
-            //V2
+
+        //V2
             if(!found){
                 d.showMessageDialog(null, "Ordet hittades inte. Försök igen", "Word not found", d.ERROR_MESSAGE);
             }
         });*/
-
+        
 
 
         //Lägger till Panes
