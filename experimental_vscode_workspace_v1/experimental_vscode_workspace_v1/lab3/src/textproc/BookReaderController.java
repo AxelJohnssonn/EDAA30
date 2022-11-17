@@ -41,8 +41,15 @@ public class BookReaderController {
         
         //Knappar
         JPanel buttonPanel = new JPanel();
+        /* 
         JButton b1 = new JButton("Alphabetic");
-        JButton b2 = new JButton("Frequency");
+        JButton b2 = new JButton("Frequency");*/
+
+        //V4 
+        JRadioButton b1 = new JRadioButton("Alphabetic");
+        JRadioButton b2 = new JRadioButton("Frequency");
+            
+        b1.setSelected(true);
         
         buttonPanel.add(b1);
         buttonPanel.add(b2);
@@ -105,6 +112,7 @@ public class BookReaderController {
             };
 
             searchButton.addActionListener(actionListener);
+            searchField.addActionListener(actionListener);
         
         //V3
         /*ActionListener thing = new ActionListener(e -> {
